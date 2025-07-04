@@ -1,19 +1,16 @@
 ---
-
 ## ❤️ Heart Disease Prediction Model
 
 - Trained using clinical features such as:
-  - Age
-  - Sex
-  - Blood Pressure
-  - Cholesterol
-  - Max Heart Rate
+    - Age
+    - Sex
+    - Blood Pressure
+    - Cholesterol
+    - Max Heart Rate
 - Built with Keras (Dense + Dropout layers)
 - Converted to `.tflite` for integration with the Flutter app
-
 ### ▶️ Training Script:
-Located in: `Heart Disease Prediction/model/train_model.py`
-
+#Located in: `Heart Disease Prediction/model/train_model.py`
 ---
 
 ## 🩻 Pneumonia Detection from X-Ray
