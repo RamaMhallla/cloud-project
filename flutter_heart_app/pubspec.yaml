@@ -60,3 +60,4 @@ flutter:
   assets:
     - assets/models/heart_model.tflite
     - assets/models/chest_xray_model.tflite
+    - assets/images/

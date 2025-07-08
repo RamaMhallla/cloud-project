@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-//import 'patient_dashboard.dart';
 import 'package:flutter_heart_app/screen/home_screen.dart';
-import 'package:flutter_heart_app/screen/singIn_screen.dart';
+import 'package:flutter_heart_app/screen/login_sreen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SingInScreen extends StatefulWidget {
+  const SingInScreen({super.key});
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SingInScreen> createState() => _SingInScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SingInScreenState extends State<SingInScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController=TextEditingController();
   bool _obscurePassword = true;
+  bool _confirmObscurePassword = true;
+
 
   @override
   void dispose() {
@@ -22,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _login() {
+  void _singIn() {
     if (_formKey.currentState!.validate()) {
       Navigator.pushReplacement(
         context,
@@ -30,13 +32,12 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
   }
-  void _goSingIn() {
+  void _backloginIn() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SingInScreen()),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
   }
-
 
 
   @override
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: const Color(0xFF5B8FB9),
         centerTitle: true,
         title: const Text(
-          'Login',
+          'Sing In',
           style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.1),
         ),
         elevation: 2,
@@ -121,10 +122,40 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             return null;
                           },
+                        ),const SizedBox(height: 12),
+                        TextFormField(
+                          controller: _confirmPasswordController,
+                          obscureText: _confirmObscurePassword,
+                          decoration: InputDecoration(
+                            labelText: 'Confirm',
+                            prefixIcon: const Icon(Icons.lock),
+                            border: const OutlineInputBorder(),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _confirmObscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _confirmObscurePassword = !_confirmObscurePassword;
+                                });
+                              },
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            if (value !=_passwordController.text){
+                                return 'Please confirm properly your password';
+                            }
+                            return null;
+                          },
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 24),
                         ElevatedButton(
-                          onPressed: _login,
+                          onPressed: _singIn,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF5B8FB9),
                             minimumSize: const Size(double.infinity, 50),
@@ -134,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             elevation: 4,
                           ),
                           child: const Text(
-                            'LOGIN',
+                            'SINGIN',
                             style: TextStyle(
                               color: Color.fromARGB(255, 255, 255, 255),
                               fontWeight: FontWeight.bold,
@@ -147,18 +178,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'No account? ',
+                              'Already have an account? ',
                               style: TextStyle(fontSize: 12),
                             ),
                             TextButton(
-                                onPressed: _goSingIn,
+                                onPressed: _backloginIn,
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero, 
                                   minimumSize: Size.zero,
                                   tapTargetSize: MaterialTapTargetSize.shrinkWrap, 
                                 ),
                                 child: const Text(
-                                  'Sing in here',
+                                  'Login here',
                                   style: TextStyle(fontSize: 12),
                                 ),
                             ),

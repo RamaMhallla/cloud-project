@@ -47,7 +47,7 @@ class MQTTService {
         _client.subscribe(topic, MqttQos.atMostOnce);
 
         _client.updates?.listen((event) {
-          final recMess = event![0].payload as MqttPublishMessage;
+          final recMess = event[0].payload as MqttPublishMessage;
           final payload = MqttPublishPayload.bytesToStringAsString(
             recMess.payload.message,
           );

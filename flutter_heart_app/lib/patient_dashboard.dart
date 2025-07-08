@@ -57,7 +57,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
   int? manualThalach;
   double? manualOldpeak;
   int? manualSlope;
-  bool _showManualSensorInputs = false;
+  //bool _showManualSensorInputs = false;
 
   // State variables to add at the top of your class
   bool _fbs = false; // Fasting Blood Sugar
@@ -276,7 +276,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: AppColor.primaryBlue.withOpacity(0.3),
+                color: AppColor.primaryBlue.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),
@@ -355,7 +355,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: BorderSide(
-          color: AppColor.primaryBlue.withOpacity(0.2),
+          color: AppColor.primaryBlue.withValues(alpha: 0.2),
           width: 1,
         ),
       ),
@@ -391,7 +391,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                    color: AppColor.primaryBlue.withOpacity(0.5),
+                    color: AppColor.primaryBlue.withValues(alpha: 0.5),
                   ),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
@@ -622,7 +622,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
     );
   }
 
-  Widget _buildInputField({
+  /*Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
@@ -668,7 +668,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _buildMedicalDataSection() {
     return Card(
@@ -1050,9 +1050,9 @@ class _PatientDashboardState extends State<PatientDashboard> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColor.lightBlue.withOpacity(0.5),
+        color: AppColor.lightBlue.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColor.primaryBlue.withOpacity(0.2)),
+        border: Border.all(color: AppColor.primaryBlue.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -100,8 +100,8 @@ class _PredictionPageState extends State<PredictionPage> {
       decoration: BoxDecoration(
         color:
             isHighRisk
-                ? AppColor.error.withOpacity(0.1)
-                : AppColor.success.withOpacity(0.1),
+                ? AppColor.error.withValues(alpha: 0.1)
+                : AppColor.success.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isHighRisk ? AppColor.error : AppColor.success,
