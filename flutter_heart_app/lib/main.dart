@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_heart_app/screen/login_sreen.dart';
+import 'package:flutter_heart_app/screen/login_screen.dart';
 //import 'package:flutter_heart_app/screen/xray_analysis_page.dart';
 
 
