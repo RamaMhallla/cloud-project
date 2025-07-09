@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'xray_analysis_page.dart';
-import 'package:flutter_heart_app/patient_dashboard.dart';
+import 'package:flutter_heart_app_new/patient_dashboard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 0; // determine which tab is active
 
   final List<Widget> _screens = [
     const XRayAnalysisPage(),

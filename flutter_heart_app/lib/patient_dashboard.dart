@@ -3,6 +3,7 @@ import 'prediction_page.dart';
 import 'dart:convert';
 import 'services/mqtt_service.dart';
 import 'dart:async';
+import 'package:flutter_heart_app_new/widgets/drawer_widget.dart';
 
 class AppColor {
   // Primary colors
@@ -57,7 +58,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
   int? manualThalach;
   double? manualOldpeak;
   int? manualSlope;
-  bool _showManualSensorInputs = false;
+  //bool _showManualSensorInputs = false;
 
   // State variables to add at the top of your class
   bool _fbs = false; // Fasting Blood Sugar
@@ -162,18 +163,16 @@ class _PatientDashboardState extends State<PatientDashboard> {
     }
 
     // تحقق من بيانات الحساسات (إما من MQTT أو يدوي)
-    final sensorValuesValid =
-        _isConnected
-            ? [trestbps, restecg, thalach, oldpeak, slope].contains(null) ==
-                false
-            : [
-                  manualTrestbps,
-                  manualRestecg,
-                  manualThalach,
-                  manualOldpeak,
-                  manualSlope,
-                ].contains(null) ==
-                false;
+    final sensorValuesValid = _isConnected
+        ? [trestbps, restecg, thalach, oldpeak, slope].contains(null) == false
+        : [
+                manualTrestbps,
+                manualRestecg,
+                manualThalach,
+                manualOldpeak,
+                manualSlope,
+              ].contains(null) ==
+              false;
 
     if (!sensorValuesValid) {
       showValidationError("Please provide all sensor values");
@@ -211,13 +210,12 @@ class _PatientDashboardState extends State<PatientDashboard> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder:
-              (context) => PredictionPage(
-                inputFeatures: inputFeatures,
-                name: "Patient",
-                age: _age,
-                gender: _gender,
-              ),
+          builder: (context) => PredictionPage(
+            inputFeatures: inputFeatures,
+            name: "Patient",
+            age: _age,
+            gender: _gender,
+          ),
         ),
       );
     } catch (e) {
@@ -276,7 +274,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: AppColor.primaryBlue.withOpacity(0.3),
+                color: AppColor.primaryBlue.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),
@@ -355,7 +353,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: BorderSide(
-          color: AppColor.primaryBlue.withOpacity(0.2),
+          color: AppColor.primaryBlue.withValues(alpha: 0.2),
           width: 1,
         ),
       ),
@@ -391,23 +389,22 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                    color: AppColor.primaryBlue.withOpacity(0.5),
+                    color: AppColor.primaryBlue.withValues(alpha: 0.5),
                   ),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 8,
                   vertical: 10,
                 ),
-                suffix:
-                    unit != null
-                        ? Text(
-                          unit,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: AppColor.textSecondary,
-                          ),
-                        )
-                        : null,
+                suffix: unit != null
+                    ? Text(
+                        unit,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColor.textSecondary,
+                        ),
+                      )
+                    : null,
               ),
               onChanged: onChanged,
             ),
@@ -491,8 +488,9 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 },
                 selectedColor: AppColor.primaryBlue,
                 labelStyle: TextStyle(
-                  color:
-                      _gender == 'Male' ? Colors.white : AppColor.textPrimary,
+                  color: _gender == 'Male'
+                      ? Colors.white
+                      : AppColor.textPrimary,
                 ),
               ),
             ),
@@ -508,8 +506,9 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 },
                 selectedColor: AppColor.primaryBlue,
                 labelStyle: TextStyle(
-                  color:
-                      _gender == 'Female' ? Colors.white : AppColor.textPrimary,
+                  color: _gender == 'Female'
+                      ? Colors.white
+                      : AppColor.textPrimary,
                 ),
               ),
             ),
@@ -543,13 +542,9 @@ class _PatientDashboardState extends State<PatientDashboard> {
               vertical: 14,
             ),
           ),
-          items:
-              _chestPainTypes.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+          items: _chestPainTypes.map((String value) {
+            return DropdownMenuItem<String>(value: value, child: Text(value));
+          }).toList(),
           onChanged: (newValue) {
             setState(() {
               _chestPainType = newValue!;
@@ -622,7 +617,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
     );
   }
 
-  Widget _buildInputField({
+  /* Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
@@ -668,7 +663,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _buildMedicalDataSection() {
     return Card(
@@ -924,13 +919,12 @@ class _PatientDashboardState extends State<PatientDashboard> {
               vertical: 14,
             ),
           ),
-          items:
-              thalOptions.entries.map((entry) {
-                return DropdownMenuItem<int>(
-                  value: entry.key,
-                  child: Text(entry.value),
-                );
-              }).toList(),
+          items: thalOptions.entries.map((entry) {
+            return DropdownMenuItem<int>(
+              value: entry.key,
+              child: Text(entry.value),
+            );
+          }).toList(),
           onChanged: (value) {
             setState(() {
               _thal = value!;
@@ -1050,9 +1044,9 @@ class _PatientDashboardState extends State<PatientDashboard> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColor.lightBlue.withOpacity(0.5),
+        color: AppColor.lightBlue.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColor.primaryBlue.withOpacity(0.2)),
+        border: Border.all(color: AppColor.primaryBlue.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1098,31 +1092,30 @@ class _PatientDashboardState extends State<PatientDashboard> {
           ),
           elevation: 4,
         ),
-        child:
-            _isLoading
-                ? const SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2,
-                  ),
-                )
-                : const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.analytics, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text(
-                      'Analyze Heart Risk',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+        child: _isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2,
                 ),
+              )
+            : const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.analytics, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Analyze Heart Risk',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -1169,6 +1162,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.lightBlue,
+      drawer: const DrawerWidget(),
       appBar: AppBar(
         title: const Text('Heart Health Monitor'),
         backgroundColor: AppColor.lightBlue,

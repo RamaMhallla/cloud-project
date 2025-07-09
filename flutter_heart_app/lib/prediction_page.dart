@@ -22,12 +22,12 @@ class PredictionPage extends StatefulWidget {
 
 class _PredictionPageState extends State<PredictionPage> {
   String result = 'Analyzing...';
-  bool _isLoading = true;
+  bool _isLoading = true; // Flag to show if the model is still running
 
   @override
   void initState() {
     super.initState();
-    runModel();
+    runModel(); // Call the model when the screen loads
   }
 
   Future<void> runModel() async {
@@ -36,12 +36,15 @@ class _PredictionPageState extends State<PredictionPage> {
         'assets/models/heart_model.tflite',
       );
 
-      var input = [widget.inputFeatures];
-      var output = List.filled(1 * 1, 0).reshape([1, 1]);
+      var input = [widget.inputFeatures]; // Format input for model
+      var output = List.filled(
+        1 * 1,
+        0,
+      ).reshape([1, 1]); // Prepare output placeholder
 
-      interpreter.run(input, output);
+      interpreter.run(input, output); // Run the model
 
-      double prediction = output[0][0].toDouble();
+      double prediction = output[0][0].toDouble(); // Get result
 
       setState(() {
         result = prediction > 0.5 ? 'High Risk Detected' : 'Low Risk (Normal)';
@@ -55,6 +58,7 @@ class _PredictionPageState extends State<PredictionPage> {
     }
   }
 
+  // Build a row showing a label and its value (e.g. Name: John)
   Widget _buildInfoRow(IconData icon, String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -73,7 +77,7 @@ class _PredictionPageState extends State<PredictionPage> {
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-              value,
+              value, // Value text
               style: TextStyle(
                 fontSize: 16,
                 color: AppColor.darkBlue,
@@ -87,21 +91,23 @@ class _PredictionPageState extends State<PredictionPage> {
     );
   }
 
+  // Builds the visual result card (with icon and message)
   Widget _buildResultIndicator() {
     if (_isLoading) {
       return const CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(AppColor.primaryBlue),
+        valueColor: AlwaysStoppedAnimation<Color>(
+          AppColor.primaryBlue,
+        ), // Show spinner while loading
       );
     }
-
-    final isHighRisk = result.contains('High');
+    final isHighRisk = result.contains('High'); // Check risk level
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color:
             isHighRisk
-                ? AppColor.error.withOpacity(0.1)
-                : AppColor.success.withOpacity(0.1),
+                ? AppColor.error.withValues(alpha: 0.1)
+                : AppColor.success.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isHighRisk ? AppColor.error : AppColor.success,
@@ -117,7 +123,7 @@ class _PredictionPageState extends State<PredictionPage> {
           ),
           const SizedBox(height: 12),
           Text(
-            result,
+            result, // Display result message
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -128,8 +134,8 @@ class _PredictionPageState extends State<PredictionPage> {
           const SizedBox(height: 8),
           Text(
             isHighRisk
-                ? 'Please consult a doctor immediately'
-                : 'Your heart health appears normal',
+                ? 'Please consult a doctor immediately' // Advice for high risk
+                : 'Your heart health appears normal', // Message for low risk
             style: TextStyle(fontSize: 16, color: AppColor.lightBlue),
             textAlign: TextAlign.center,
           ),
@@ -192,7 +198,10 @@ class _PredictionPageState extends State<PredictionPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed:
+                          () => Navigator.pop(
+                            context,
+                          ), // Go back to previous screen
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.primaryBlue,
                         padding: const EdgeInsets.symmetric(vertical: 16),

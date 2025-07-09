@@ -74,7 +74,7 @@ class _MqttTestPageState extends State<MqttTestPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('MQTT Test Receiver')),
       body: ListView.builder(
-        reverse: true,
+        reverse: true, // to let new msg be at the top
         itemCount: messages.length,
         itemBuilder: (context, index) {
           return ListTile(title: Text(messages[index]));

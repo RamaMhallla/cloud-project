@@ -1,25 +1,43 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_heart_app/screen/login_sreen.dart';
-import 'package:flutter_heart_app/screen/xray_analysis_page.dart';
-import 'package:flutter_heart_app/screen/home_screen.dart';
-import 'prediction_page.dart';
-import 'patient_dashboard.dart';
-import 'services/mqtt_test_page.dart';
+// ========================
+// 📄 lib/main.dart
+// ========================
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_heart_app_new/screen/login_screen.dart';
+import 'package:flutter_heart_app_new/providers/user_provider.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'amplifyconfiguration.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Amplify.addPlugin(AmplifyAuthCognito());
+    await Amplify.configure(amplifyconfig);
+  } catch (e) {
+    safePrint('Amplify configure error: $e');
+  }
+
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => UserProvider())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Heart Prediction',
-      theme: ThemeData(primarySwatch: Colors.red),
       debugShowCheckedModeBanner: false,
-
-      home: const HomeScreen(), // استدعاء الصفحة الجديدة
+      title: 'Flutter Heart App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const LoginScreen(),
     );
   }
 }

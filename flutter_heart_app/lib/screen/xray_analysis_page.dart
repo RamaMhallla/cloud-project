@@ -1,3 +1,7 @@
+// التعديلات الأساسية:
+// - استبدال img.getRed() / getGreen / getBlue بعملية يدوية لاستخراج قيم R/G/B
+// - لضمان التوافق مع مكتبة image الجديدة
+
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:io';
@@ -5,32 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
+import 'package:flutter_heart_app_new/widgets/drawer_widget.dart';
 
 class AppColor {
-  // Primary colors
-  static const primaryBlue = Color(0xFF5B8FB9); // Main soft blue
-  static const lightBlue = Color(0xFFB6D0E2); // Light blue for backgrounds
-  static const darkBlue = Color.fromARGB(
-    255,
-    7,
-    72,
-    137,
-  ); // Dark blue for text and titles
-
-  // Secondary colors
-  static const softTeal = Color(0xFF7FB3B0); // Soft blue-green
-  static const paleBlue = Color(0xFFE6F2F5); // Very light blue for backgrounds
-
-  // Status colors
-  static const success = Color(0xFF4CAF50); // Green for success
-  static const warning = Color(0xFFFFA000); // Orange for warning
-  static const error = Color(0xFFE53935); // Red for error
-
-  // Text colors
-  static const textPrimary = Color(0xFF2C3E50); // Blue-gray for primary text
-  static const textSecondary = Color(
-    0xFF7F8C8D,
-  ); // Light gray for secondary text
+  static const primaryBlue = Color(0xFF5B8FB9);
+  static const lightBlue = Color(0xFFB6D0E2);
+  static const darkBlue = Color.fromARGB(255, 7, 72, 137);
+  static const softTeal = Color(0xFF7FB3B0);
+  static const paleBlue = Color(0xFFE6F2F5);
+  static const success = Color(0xFF4CAF50);
+  static const warning = Color(0xFFFFA000);
+  static const error = Color(0xFFE53935);
+  static const textPrimary = Color(0xFF2C3E50);
+  static const textSecondary = Color(0xFF7F8C8D);
 }
 
 class XRayAnalysisPage extends StatefulWidget {
@@ -61,13 +52,11 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
       _interpreter = await Interpreter.fromAsset(
         'assets/models/chest_xray_model.tflite',
       );
-      print('Model loaded successfully');
       setState(() {
         _modelLoaded = true;
         _isLoading = false;
       });
     } catch (e) {
-      print('Error loading model: $e');
       setState(() {
         _result = 'Error loading analysis model';
         _isLoading = false;
@@ -95,7 +84,6 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
     });
 
     try {
-      // Read and process the image
       img.Image? imageInput = img.decodeImage(await _image!.readAsBytes());
       if (imageInput == null) {
         setState(() {
@@ -105,7 +93,6 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
         return;
       }
 
-      // Resize image to model input size (150x150)
       img.Image resizedImage = img.copyResize(
         imageInput,
         width: 150,
@@ -136,7 +123,6 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
         _confidence = '';
         _isLoading = false;
       });
-      print('Error during analysis: $e');
     }
   }
 
@@ -147,55 +133,61 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
     return [
       List.generate(inputSize, (y) {
         return List.generate(inputSize, (x) {
-          var pixel = image.getPixel(x, y);
-          var r = img.getRed(pixel) / 255.0;
-          var g = img.getGreen(pixel) / 255.0;
-          var b = img.getBlue(pixel) / 255.0;
+          final pixel = image.getPixel(x, y);
+          final r = pixel.r / 255.0;
+          final g = pixel.g / 255.0;
+          final b = pixel.b / 255.0;
+
           return [r, g, b];
         });
       }),
     ];
   }
 
+  //_buildImagePreview  Card to show the chosen image or No X-ray image selected
   Widget _buildImagePreview() {
     return Card(
       margin: const EdgeInsets.only(bottom: 20),
-      elevation: 4,
+      elevation: 4, // Card shadow depth
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            // Check if no image selected yet
             _image == null
                 ? Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: AppColor.paleBlue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.image,
-                          size: 40,
-                          color: AppColor.primaryBlue,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'No X-ray image selected',
-                          style: TextStyle(color: AppColor.textSecondary),
-                        ),
-                      ],
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: AppColor.paleBlue,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                )
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.image,
+                            size: 40,
+                            color: AppColor.primaryBlue,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'No X-ray image selected',
+                            style: TextStyle(color: AppColor.textSecondary),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                 : ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.file(_image!, height: 200, fit: BoxFit.cover),
-                ),
+                    // If image is selected, show it inside a clipped widget with rounded corners
+                    borderRadius: BorderRadius.circular(10),
+                    // _image! is the selected image file
+                    child: Image.file(_image!, height: 200, fit: BoxFit.cover),
+                  ),
             if (_image != null) ...[
+              // If image is selected, add description text
               const SizedBox(height: 12),
               Text(
                 'Selected X-ray Image',
@@ -208,6 +200,7 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
     );
   }
 
+  // _buildAnalysisCard - Card that displays the result of the AI analysiss
   Widget _buildAnalysisCard() {
     return Card(
       elevation: 4,
@@ -215,7 +208,8 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to the start (left)
           children: [
             Row(
               children: [
@@ -232,38 +226,41 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
               ],
             ),
             const SizedBox(height: 16),
-            _isLoading
+            _isLoading //Check if loading (analysis in progress)
                 ? Center(
-                  child: CircularProgressIndicator(color: AppColor.primaryBlue),
-                )
-                : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _result,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color:
-                            _result.startsWith('✅')
-                                ? AppColor.success
-                                : _result.startsWith('⚠️')
-                                ? AppColor.error
-                                : AppColor.textPrimary,
-                      ),
+                    child: CircularProgressIndicator(
+                      color: AppColor.primaryBlue,
                     ),
-                    if (_confidence.isNotEmpty) ...[
-                      const SizedBox(height: 8),
+                  )
+                : Column(
+                    // If not loading, show result text and confidence
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        _confidence,
+                        _result, // Display the result message (e.g., Pneumonia detected or Normal)
                         style: TextStyle(
-                          fontSize: 14,
-                          color: AppColor.textSecondary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: _result.startsWith('✅')
+                              ? AppColor.success
+                              : _result.startsWith('⚠️')
+                              ? AppColor.error
+                              : AppColor.textPrimary,
                         ),
                       ),
+                      if (_confidence.isNotEmpty) ...[
+                        // If confidence score is available
+                        const SizedBox(height: 8),
+                        Text(
+                          _confidence, // Show confidence score (e.g., 92.45%)
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColor.textSecondary,
+                          ),
+                        ),
+                      ],
                     ],
-                  ],
-                ),
+                  ),
           ],
         ),
       ),
@@ -274,11 +271,12 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.paleBlue,
+      drawer: const DrawerWidget(),
       appBar: AppBar(
         title: const Text('X-Ray Analysis'),
         backgroundColor: AppColor.lightBlue,
         centerTitle: true,
-        elevation: 0,
+        elevation: 0, // Remove shadow under the AppBar
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -289,7 +287,8 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: pickImage,
+                    onPressed:
+                        pickImage, // Function to open gallery and pick image
                     icon: const Icon(Icons.image),
                     label: const Text('Select Image'),
                     style: ElevatedButton.styleFrom(
@@ -304,8 +303,10 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed:
-                        _modelLoaded && _image != null ? analyzeImage : null,
+                    onPressed: // Only enable button if model is loaded and image is selected
+                    _modelLoaded && _image != null
+                        ? analyzeImage
+                        : null,
                     icon: const Icon(Icons.analytics),
                     label: const Text('Analyze'),
                     style: ElevatedButton.styleFrom(
@@ -322,6 +323,7 @@ class _XRayAnalysisPageState extends State<XRayAnalysisPage> {
             const SizedBox(height: 20),
             _buildAnalysisCard(),
             if (!_modelLoaded && !_isLoading)
+              // Show error if model failed to load
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(

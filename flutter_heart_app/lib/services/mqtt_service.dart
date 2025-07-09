@@ -1,67 +1,76 @@
-import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:flutter/foundation.dart';
+import 'package:mqtt_client/mqtt_client.dart'; // Core MQTT library
+import 'package:mqtt_client/mqtt_server_client.dart'; // Server client for MQTT
+import 'package:flutter/foundation.dart'; // Provides VoidCallback
 
 class MQTTService {
   final String broker = 'broker.hivemq.com';
-  late final String clientId;
+  late final String clientId; // Unique client ID
   final String topic = 'health/patient1/sensors';
 
-  late MqttServerClient _client;
+  late MqttServerClient _client; // MQTT client instance
 
-  Function(String)? onMessageReceived;
-  VoidCallback? onConnected; // ✅ أضف هذا
-  VoidCallback? onDisconnected; // ✅ وأضف هذا
+  Function(String)? onMessageReceived; // Callback for received messages
+  VoidCallback? onConnected; // Callback when connected
+  VoidCallback? onDisconnected; // Callback when disconnected
 
   MQTTService() {
-    clientId = 'flutter_client_${DateTime.now().millisecondsSinceEpoch}';
-    _client = MqttServerClient(broker, clientId);
-    _client.port = 1883;
-    _client.keepAlivePeriod = 20;
-    _client.autoReconnect = true;
-    _client.logging(on: true);
+    clientId =
+        'flutter_client_${DateTime.now().millisecondsSinceEpoch}'; // Generate unique client ID
+    _client = MqttServerClient(broker, clientId); // Create MQTT client
+    _client.port = 1883; // MQTT default port
+    _client.keepAlivePeriod = 20; // Keep alive interval 20s
+    _client.autoReconnect = true; // Enable auto reconnect
+    _client.logging(on: true); // Enable logging in console
 
+    // Assign internal callback handlers
+    // if connected successfully => run connected fun
     _client.onConnected = _onConnected;
     _client.onDisconnected = _onDisconnected;
     _client.onSubscribed = _onSubscribed;
     _client.onSubscribeFail = _onSubscribeFail;
-    _client.pongCallback = _pong;
+    _client.pongCallback = _pong; // if a ping is received =>run _pong
 
     _client.onAutoReconnect = () => print('🔄 Trying to auto reconnect...');
     _client.onAutoReconnected = () => print('✅ Auto reconnected!');
 
+    // Define connection message
     final connMess = MqttConnectMessage()
         .withClientIdentifier(clientId)
         .startClean()
-        .withWillQos(MqttQos.atMostOnce);
+        .withWillQos(MqttQos.atMostOnce); // QoS 0
     _client.connectionMessage = connMess;
   }
+  // start clean means the broker will not maitain the past sessions
 
   Future<void> connect() async {
     try {
       print('⏳ Connecting to MQTT broker...');
       await _client.connect();
+      // wait until connect successfully or fail the connect with the broker
 
       if (_client.connectionStatus?.state == MqttConnectionState.connected) {
         print('✅ Connected successfully, subscribing...');
         _client.subscribe(topic, MqttQos.atMostOnce);
 
         _client.updates?.listen((event) {
-          final recMess = event![0].payload as MqttPublishMessage;
+          final recMess = event[0].payload as MqttPublishMessage;
           final payload = MqttPublishPayload.bytesToStringAsString(
             recMess.payload.message,
-          );
+          ); // convert the content of the msg from bytes to String (to be readable)
           print('📥 Message received: $payload');
-          onMessageReceived?.call(payload); // أفضل طريقة مختصرة
+          onMessageReceived?.call(
+            payload,
+          ); // call onMessageReceived fun and give it the payload
         });
 
-        // نداء عند الاتصال
+        //call onConnected fun to update or change the status to "Connected"
         onConnected?.call();
       } else {
         print('❌ Connection failed - disconnecting');
         disconnect();
       }
     } catch (e) {
+      // if an exception is happen like np internet or server is busy => error msg + disconnect
       print('❌ MQTT client connection failed: $e');
       disconnect();
     }
@@ -70,12 +79,12 @@ class MQTTService {
   void disconnect() {
     print('🛑 Disconnecting MQTT client');
     _client.disconnect();
-    onDisconnected?.call(); // ← نداء عند فصل الاتصال
+    onDisconnected?.call();
   }
 
   void _onConnected() {
     print('✅ MQTT Connected');
-    onConnected?.call(); // ← أيضاً نداء من الكولباك الأساسي
+    onConnected?.call();
   }
 
   void _onDisconnected() {
@@ -85,7 +94,7 @@ class MQTTService {
       print('Status state: ${status.state}');
       print('Connection status: ${status.toString()}');
     }
-    onDisconnected?.call(); // ← نداء عند انقطاع الاتصال
+    onDisconnected?.call();
   }
 
   void _onSubscribed(String topic) {
