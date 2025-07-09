@@ -3,6 +3,7 @@
 // ========================
 
 import 'package:flutter/material.dart';
+import 'package:flutter_heart_app_new/root/root.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_heart_app_new/screen/login_screen.dart';
 import 'package:flutter_heart_app_new/providers/user_provider.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Heart App',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const LoginScreen(),
+      home: const Root(),
     );
   }
 }

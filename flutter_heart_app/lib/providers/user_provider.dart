@@ -10,7 +10,7 @@ class UserProvider extends ChangeNotifier {
   String get userName => _userName;
   String get userEmail => _userEmail;
 
-  Future<void> loadUserAttributes() async {
+  Future<String> loadUserAttributes() async {
     try {
       final attributes = await Amplify.Auth.fetchUserAttributes();
       _userEmail =
@@ -38,9 +38,14 @@ class UserProvider extends ChangeNotifier {
           '';
 
       notifyListeners();
+      if (_userName!='' && _userEmail!=''){
+          return "success";
+      }
     } catch (e) {
       safePrint('❌ Failed to load user attributes: $e');
     }
+    return "failure";
+
   }
 
   void clearUser() {

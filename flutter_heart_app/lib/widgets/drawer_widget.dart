@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_heart_app_new/root/root.dart';
 import 'package:flutter_heart_app_new/screen/medical_history_page.dart';
 import 'package:flutter_heart_app_new/screen/login_screen.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -152,7 +153,7 @@ class DrawerWidget extends StatelessWidget {
                       if (context.mounted) {
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                            builder: (_) => const LoginScreen(),
+                            builder: (_) => const Root(),
                           ),
                           (route) => false,
                         );
