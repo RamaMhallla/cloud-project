@@ -40,8 +40,8 @@ class _RootState extends State<Root> {
       case AuthStatus.loggedIn:
       retVal=HomeScreen();
       break;
-    }
-    return Scaffold(
+    }return Scaffold(
+      body: retVal, 
     );
   }
 }

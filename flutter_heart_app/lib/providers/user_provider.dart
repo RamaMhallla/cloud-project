@@ -48,9 +48,16 @@ class UserProvider extends ChangeNotifier {
 
   }
 
-  void clearUser() {
-    _userName = '';
-    _userEmail = '';
-    notifyListeners();
+Future<void> signOut() async {
+    try {
+      await Amplify.Auth.signOut();
+      _userName = ''; // Clear user data
+      _userEmail = ''; // Clear user data
+      safePrint('User signed out successfully.');
+    } on AuthException catch (e) {
+      safePrint('❌ Sign out failed: $e');
+    } finally {
+      notifyListeners(); // Notify listeners after sign out
+    }
   }
 }
