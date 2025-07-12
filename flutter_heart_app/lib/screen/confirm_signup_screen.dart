@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter_heart_app_new/screen/login_screen.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter_heart_app_new/screen/home_screen.dart';
 
 class ConfirmSignUpScreen extends StatefulWidget {
@@ -33,6 +31,7 @@ class _ConfirmSignUpScreenState extends State<ConfirmSignUpScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("✅ Account confirmed! Please login.")),
         );
+        
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const HomeScreen()),

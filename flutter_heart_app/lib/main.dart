@@ -5,7 +5,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heart_app_new/root/root.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_heart_app_new/screen/login_screen.dart';
 import 'package:flutter_heart_app_new/providers/user_provider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'amplifyconfiguration.dart';

@@ -21,14 +21,14 @@ class _RootState extends State<Root> {
             context,
             listen: false,
           );
+    if (_user.rememberMe){      
     String _returnString =await _user.loadUserAttributes();
-    if (_returnString=='success'){
+      if (_returnString=='success'){
         setState(() {
            _authStatus= AuthStatus.loggedIn;
         });
+      }
     }
-
-    
   }
   @override
   Widget build(BuildContext context) {

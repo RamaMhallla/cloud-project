@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_heart_app_new/screen/home_screen.dart';
 import 'package:flutter_heart_app_new/screen/signUp_screen.dart';
 import 'package:flutter_heart_app_new/screen/xray_analysis_page.dart';
 import 'package:flutter_heart_app_new/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -70,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Provider.of<UserProvider>(
             context,
             listen: false,
-          ).loadUserAttributes();
+          ).login(_rememberMe);
 
           Navigator.pushReplacement(
             context,

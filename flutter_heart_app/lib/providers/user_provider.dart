@@ -6,9 +6,19 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 class UserProvider extends ChangeNotifier {
   String _userName = '';
   String _userEmail = '';
+  bool _rememberMe = false;
 
   String get userName => _userName;
   String get userEmail => _userEmail;
+  bool get rememberMe=>_rememberMe;
+
+  Future<String> login(bool rememberMeP) async {
+      Future<String> ret=loadUserAttributes();
+      if (ret=="success"){
+        _rememberMe=rememberMeP;
+      }
+      return ret;
+  }
 
   Future<String> loadUserAttributes() async {
     try {
@@ -53,6 +63,7 @@ Future<void> signOut() async {
       await Amplify.Auth.signOut();
       _userName = ''; // Clear user data
       _userEmail = ''; // Clear user data
+      _rememberMe=false;
       safePrint('User signed out successfully.');
     } on AuthException catch (e) {
       safePrint('❌ Sign out failed: $e');

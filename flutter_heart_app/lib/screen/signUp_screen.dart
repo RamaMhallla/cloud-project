@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_heart_app_new/screen/home_screen.dart';
 import 'package:flutter_heart_app_new/screen/login_screen.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_heart_app_new/screen/confirm_signup_screen.dart';
 
