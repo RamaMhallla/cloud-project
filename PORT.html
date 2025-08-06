@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rama Mhalla | Telecom Engineer & AI Enthusiast</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #2b3d5b;
+        --secondary-color: #3a5a7a;
+        --accent-color: #4fc3f7;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --text-color: #495057;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--light-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 6rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .architecture-banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("R0.jpg");
+        background-size: cover;
+        background-position: center;
+        /* opacity: 4; */
+        z-index: 0;
+      }
+
+      .banner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(43, 61, 91, 0.9) 0%,
+          rgba(58, 90, 122, 0.7) 100%
+        );
+        z-index: 1;
+      }
+
+      .moving-icons {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .tech-icon {
+        position: absolute;
+        opacity: 0.1;
+        color: white;
+        font-size: 1.5rem;
+        animation: float 15s infinite linear;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+        }
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 3rem;
+        font-weight: 600;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      header p {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        margin: 1.5rem auto 0;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
+      }
+
+      .banner-caption {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgba(79, 195, 247, 0.2);
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        color: white;
+        z-index: 2;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .scroll-down {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        color: white;
+        font-size: 1.5rem;
+        animation: bounce 2s infinite;
+        cursor: pointer;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0) translateX(-50%);
+        }
+        40% {
+          transform: translateY(-20px) translateX(-50%);
+        }
+        60% {
+          transform: translateY(-10px) translateX(-50%);
+        }
+      }
+
+      section {
+        padding: 4rem 2rem;
+        max-width: 1000px;
+        margin: auto;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      h2 {
+        color: var(--primary-color);
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 0.8rem;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 70px;
+        height: 4px;
+        background-color: var(--accent-color);
+        border-radius: 2px;
+      }
+
+      .project {
+        background-color: white;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-left: 5px solid var(--accent-color);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .project::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(79, 195, 247, 0.05) 0%,
+          rgba(79, 195, 247, 0) 100%
+        );
+        z-index: 0;
+      }
+
+      .project:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .project h3 {
+        color: var(--secondary-color);
+        margin-top: 0;
+        font-size: 1.5rem;
+        position: relative;
+      }
+
+      .skills ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .skills ul li {
+        background-color: white;
+        color: var(--secondary-color);
+        padding: 0.6rem 1.4rem;
+        border-radius: 30px;
+        font-size: 1rem;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(79, 195, 247, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skills ul li::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(79, 195, 247, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .skills ul li:hover {
+        background-color: var(--accent-color);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(79, 195, 247, 0.4);
+      }
+
+      .skills ul li:hover::before {
+        left: 100%;
+      }
+
+      footer {
+        text-align: center;
+        padding: 3rem 2rem;
+        background-color: var(--primary-color);
+        color: white;
+        margin-top: 3rem;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--accent-color), #8be2ff);
+      }
+
+      a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: 500;
+      }
+
+      a:hover {
+        color: #8be2ff;
+        text-decoration: underline;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .contact-info p {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 1.1rem;
+      }
+
+      .contact-info i {
+        width: 30px;
+        height: 30px;
+        background-color: rgba(79, 195, 247, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+      }
+
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 1rem;
+        position: relative;
+      }
+
+      .demo-link,
+      .code-link {
+        padding: 0.6rem 1.2rem;
+        border-radius: 5px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .demo-link {
+        background-color: var(--accent-color);
+        color: white;
+      }
+
+      .demo-link:hover {
+        background-color: #3aa8d8;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(79, 195, 247, 0.5);
+      }
+
+      .code-link {
+        background-color: white;
+        color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+      }
+
+      .code-link:hover {
+        background-color: #f0f9ff;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(79, 195, 247, 0.2);
+      }
+
+      .project-content {
+        display: flex;
+        gap: 2.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .project-image {
+        flex: 1;
+        min-width: 300px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        position: relative;
+      }
+
+      .project-image:hover {
+        transform: scale(1.02);
+      }
+
+      .project-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+
+      .project-image:hover img {
+        transform: scale(1.05);
+      }
+
+      .project-details {
+        flex: 2;
+        position: relative;
+      }
+
+      .features-list {
+        padding-left: 1.5rem;
+      }
+
+      .features-list li {
+        margin-bottom: 0.8rem;
+        position: relative;
+      }
+
+      .features-list li::before {
+        content: "▹";
+        position: absolute;
+        left: -1.2rem;
+        color: var(--accent-color);
+        font-size: 1.2rem;
+      }
+
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        list-style: none;
+        padding: 1rem 0 0 0;
+        margin-top: 1.5rem;
+        border-top: 1px dashed #e0e0e0;
+      }
+
+      .tech-tags li {
+        background-color: #e3f2fd;
+        color: var(--secondary-color);
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .tech-tags li:hover {
+        background-color: var(--accent-color);
+        color: white;
+      }
+
+      .about-content {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-text {
+        flex: 2;
+      }
+
+      .about-image {
+        flex: 1;
+        min-width: 250px;
+        position: relative;
+      }
+
+      .about-image img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.5s ease;
+      }
+
+      .about-image:hover img {
+        transform: scale(1.05) rotate(2deg);
+      }
+
+      .about-image::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 3px solid var(--accent-color);
+        border-radius: 10px;
+        top: 15px;
+        left: 15px;
+        z-index: -1;
+        transition: all 0.3s ease;
+      }
+
+      .about-image:hover::before {
+        top: 10px;
+        left: 10px;
+      }
+
+      .education-item {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+
+      .education-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .education-icon {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(79, 195, 247, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .education-details h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+      }
+
+      .education-details p {
+        margin: 0.3rem 0;
+        color: var(--text-color);
+      }
+
+      .education-date {
+        color: var(--accent-color);
+        font-weight: 500;
+      }
+
+      /* للهواتف المحمولة */
+      @media (max-width: 768px) {
+        header {
+          padding: 4rem 1.5rem;
+          min-height: 300px;
+        }
+
+        header h1 {
+          font-size: 2.2rem;
+        }
+
+        header p {
+          font-size: 1.1rem;
+        }
+
+        section {
+          padding: 2.5rem 1.5rem;
+        }
+
+        .skills ul {
+          gap: 0.8rem;
+        }
+
+        .skills ul li {
+          padding: 0.5rem 1.2rem;
+          font-size: 0.9rem;
+        }
+
+        .project-content {
+          flex-direction: column;
+        }
+
+        .project-image {
+          min-width: 100%;
+        }
+
+        .project-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .project-links {
+          width: 100%;
+          justify-content: flex-start;
+        }
+
+        .about-content {
+          flex-direction: column;
+        }
+
+        .about-image {
+          order: -1;
+          margin-bottom: 2rem;
+        }
+
+        .education-item {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+    </style>
+    <style>
+      /* Education Section Styling */
+      .education-item {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+        background-color: white;
+        padding: 1.8rem;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-left: 4px solid var(--accent-color);
+      }
+
+      .education-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .education-icon {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(79, 195, 247, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        margin-top: 5px;
+      }
+
+      .education-details {
+        flex: 1;
+      }
+
+      .education-details h3 {
+        margin-top: 0;
+        margin-bottom: 0.8rem;
+        color: var(--secondary-color);
+        font-size: 1.4rem;
+      }
+
+      .education-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        margin-bottom: 1rem;
+        align-items: center;
+      }
+
+      .education-meta span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        color: var(--text-color);
+      }
+
+      .education-meta i {
+        color: var(--accent-color);
+        width: 16px;
+        text-align: center;
+      }
+
+      .education-description p {
+        margin: 0.8rem 0;
+        line-height: 1.7;
+      }
+
+      .education-specializations {
+        padding-left: 0;
+        list-style: none;
+        margin: 1rem 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.8rem;
+      }
+
+      .education-specializations li {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.95rem;
+        padding: 0.5rem 0.8rem;
+        background-color: rgba(79, 195, 247, 0.08);
+        border-radius: 6px;
+      }
+
+      .education-specializations i {
+        color: var(--accent-color);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .education-item {
+          flex-direction: column;
+          gap: 1.2rem;
+        }
+
+        .education-meta {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.6rem;
+        }
+
+        .education-specializations {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="architecture-banner"></div>
+      <div class="banner-overlay"></div>
+      <div class="moving-icons" id="movingIcons"></div>
+
+      <div class="header-content">
+        <h1>Rama Mhalla</h1>
+        <p>
+          <span class="typing-text"></span><span class="typing-cursor">|</span>
+        </p>
+      </div>
+
+      <div class="scroll-down" onclick="scrollToContent()">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </header>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            I am a passionate Master's student in Telecommunication Engineering
+            at the University of Calabria, specializing in cutting-edge
+            technologies that power the future of connectivity. With a
+            Bachelor's degree in Information and Communication Technology, I
+            bridge the gap between theory and practical implementation.
+          </p>
+          <p>
+            My expertise spans across AI-driven solutions, IoT ecosystems, and
+            the seamless integration of Edge and Cloud computing.
+          </p>
+          <p>
+            When I'm not coding or researching, you can find me exploring the
+            latest tech trends, contributing to open-source projects, or
+            mentoring aspiring engineers.
+          </p>
+        </div>
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+            alt="Rama Mhalla"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <div class="education-item">
+        <div class="education-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="education-details">
+          <h3>MSc in Telecommunication Engineering</h3>
+          <div class="education-meta">
+            <span class="education-institution"
+              ><i class="fas fa-university"></i> University of Calabria</span
+            >
+            <span class="education-date"
+              ><i class="far fa-calendar-alt"></i> 2024 - Present</span
+            >
+            <span class="education-location"
+              ><i class="fas fa-map-marker-alt"></i> Rende, Italy</span
+            >
+          </div>
+          <div class="education-description">
+            <p>
+              Specializing in Intelligent Sensing, Computing, and Networks with
+              focus areas:
+            </p>
+            <ul class="education-specializations">
+              <li>
+                <i class="fas fa-microchip"></i> Artificial Intelligence
+                Applications
+              </li>
+              <li>
+                <i class="fas fa-network-wired"></i> IoT Systems Architecture
+              </li>
+              <li>
+                <i class="fas fa-tachometer-alt"></i> 5G Network Technologies
+              </li>
+              <li><i class="fas fa-cloud"></i> Cloud/Edge Computing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="education-item">
+        <div class="education-icon">
+          <i class="fas fa-university"></i>
+        </div>
+        <div class="education-details">
+          <h3>BSc in Information and Communication Technology</h3>
+          <div class="education-meta">
+            <span class="education-institution"
+              ><i class="fas fa-university"></i> University of Tartous</span
+            >
+            <span class="education-date"
+              ><i class="far fa-calendar-alt"></i> 2017 - 2021</span
+            >
+            <span class="education-location"
+              ><i class="fas fa-map-marker-alt"></i> Tartous, Syria</span
+            >
+          </div>
+          <div class="education-description">
+            <p>
+              Graduated with honors (90.14%) in Computer and Electronic Systems
+              specialization.
+            </p>
+            <p>Key focus areas:</p>
+            <ul class="education-specializations">
+              <li><i class="fas fa-laptop-code"></i> Software Development</li>
+              <li><i class="fas fa-server"></i> Network Systems</li>
+              <li><i class="fas fa-database"></i> Information Systems</li>
+              <li><i class="fas fa-microchip"></i> Electronic Systems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Featured Projects</h2>
+      <div class="project">
+        <div class="project-header">
+          <h3>Smart Health Monitoring System</h3>
+          <div class="project-links">
+            <a href="#" class="demo-link"
+              ><i class="fas fa-external-link-alt"></i> Live Demo</a
+            >
+            <a href="#" class="code-link"
+              ><i class="fab fa-github"></i> View Code</a
+            >
+          </div>
+        </div>
+        <p>
+          A comprehensive mobile health solution that integrates wearable
+          sensors with cloud analytics for real-time patient monitoring and
+          predictive healthcare.
+        </p>
+        <div class="project-content">
+          <div class="project-image">
+            <img
+              src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+              alt="Smart Health Monitoring System"
+            />
+          </div>
+          <div class="project-details">
+            <ul class="features-list">
+              <li>
+                Flutter mobile app with real-time vital sign visualization
+              </li>
+              <li>AWS backend with Lambda, SageMaker, and DynamoDB</li>
+              <li>Edge-cloud switching algorithm for optimal processing</li>
+              <li>ML prediction models for early health anomaly detection</li>
+              <li>MQTT protocol for efficient IoT communication</li>
+            </ul>
+            <ul class="tech-tags">
+              <li>Flutter</li>
+              <li>AWS</li>
+              <li>Python</li>
+              <li>TensorFlow</li>
+              <li>MQTT</li>
+              <li>Edge Computing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-header">
+          <h3>Gesture + Voice Controlled Presentation System</h3>
+          <div class="project-links">
+            <a href="#" class="demo-link"
+              ><i class="fas fa-external-link-alt"></i> Live Demo</a
+            >
+            <a href="#" class="code-link"
+              ><i class="fab fa-github"></i> View Code</a
+            >
+          </div>
+        </div>
+        <p>
+          An innovative presentation control system that combines hand gesture
+          recognition with voice commands for seamless slide navigation.
+        </p>
+        <div class="project-content">
+          <div class="project-image">
+            <img
+              src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+              alt="Gesture Controlled Presentation"
+            />
+          </div>
+          <div class="project-details">
+            <ul class="features-list">
+              <li>MediaPipe hand tracking for precise gesture recognition</li>
+              <li>Python-based voice command processing</li>
+              <li>Integration with PowerPoint and Keynote</li>
+              <li>Customizable gesture mapping</li>
+              <li>Low-latency performance for real-time control</li>
+            </ul>
+            <ul class="tech-tags">
+              <li>Python</li>
+              <li>OpenCV</li>
+              <li>MediaPipe</li>
+              <li>SpeechRecognition</li>
+              <li>PyAutoGUI</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-header">
+          <h3>Air Canvas Drawing App</h3>
+          <div class="project-links">
+            <a href="#" class="demo-link"
+              ><i class="fas fa-external-link-alt"></i> Live Demo</a
+            >
+            <a href="#" class="code-link"
+              ><i class="fab fa-github"></i> View Code</a
+            >
+          </div>
+        </div>
+        <p>
+          A virtual canvas that lets users draw in the air using finger
+          movements, captured through computer vision techniques.
+        </p>
+        <div class="project-content">
+          <div class="project-image">
+            <img
+              src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+              alt="Air Canvas Drawing App"
+            />
+          </div>
+          <div class="project-details">
+            <ul class="features-list">
+              <li>Real-time finger tracking using OpenCV</li>
+              <li>Color selection and brush size adjustment</li>
+              <li>Save and export drawings functionality</li>
+              <li>Background subtraction for robust performance</li>
+              <li>Minimal hardware requirements</li>
+            </ul>
+            <ul class="tech-tags">
+              <li>Python</li>
+              <li>OpenCV</li>
+              <li>NumPy</li>
+              <li>MediaPipe</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills">
+      <h2>Technical Skills</h2>
+      <ul>
+        <li><i class="fab fa-python"></i> Python</li>
+        <li><i class="fab fa-aws"></i> AWS Cloud</li>
+        <li><i class="fas fa-network-wired"></i> IoT Development</li>
+        <li><i class="fas fa-brain"></i> Machine Learning</li>
+        <li><i class="fab fa-php"></i> PHP</li>
+        <li><i class="fab fa-flutter"></i> Flutter</li>
+        <li><i class="fas fa-database"></i> MySQL</li>
+        <li><i class="fas fa-satellite-dish"></i> 5G Technologies</li>
+        <li><i class="fas fa-server"></i> Edge Computing</li>
+        <li><i class="fab fa-html5"></i> HTML5 & CSS3</li>
+        <li><i class="fab fa-git-alt"></i> Git & GitHub</li>
+        <li><i class="fas fa-project-diagram"></i> MQTT Protocol</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Get In Touch</h2>
+      <div class="contact-info">
+        <p>
+          <i class="fas fa-envelope"></i>
+          Email:
+          <a href="mailto:rama.mhalla@example.com">rama.mhalla@example.com</a>
+        </p>
+        <p>
+          <i class="fab fa-linkedin"></i>
+          LinkedIn:
+          <a href="https://linkedin.com/in/rama-mhalla"
+            >linkedin.com/in/rama-mhalla</a
+          >
+        </p>
+        <p>
+          <i class="fab fa-github"></i>
+          GitHub:
+          <a href="https://github.com/ramamhalla">github.com/ramamhalla</a>
+        </p>
+        <p>
+          <i class="fas fa-map-marker-alt"></i>
+          Location: Calabria, Italy
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Rama Mhalla | Telecom Engineer & AI Enthusiast</p>
+      <div class="social-links" style="margin-top: 1rem">
+        <a href="#" style="color: white; margin: 0 10px; font-size: 1.2rem"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="#" style="color: white; margin: 0 10px; font-size: 1.2rem"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="#" style="color: white; margin: 0 10px; font-size: 1.2rem"
+          ><i class="fab fa-medium"></i
+        ></a>
+        <a href="#" style="color: white; margin: 0 10px; font-size: 1.2rem"
+          ><i class="fab fa-researchgate"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script>
+      // Create moving tech icons in the header
+      document.addEventListener("DOMContentLoaded", function () {
+        const movingIcons = document.getElementById("movingIcons");
+        const icons = [
+          "fa-microchip",
+          "fa-wifi",
+          "fa-robot",
+          "fa-server",
+          "fa-cloud",
+          "fa-satellite",
+          "fa-mobile-alt",
+          "fa-code",
+        ];
+
+        for (let i = 0; i < 20; i++) {
+          const icon = document.createElement("i");
+          icon.className = `tech-icon fas ${
+            icons[Math.floor(Math.random() * icons.length)]
+          }`;
+          icon.style.left = `${Math.random() * 100}%`;
+          icon.style.top = `${Math.random() * 100}%`;
+          icon.style.animationDuration = `${10 + Math.random() * 20}s`;
+          icon.style.animationDelay = `${Math.random() * 5}s`;
+          movingIcons.appendChild(icon);
+        }
+
+        // Typing effect
+        const typingText = document.querySelector(".typing-text");
+        const phrases = [
+          "MSc Student in Telecommunication Engineering",
+          "AI & IoT Specialist",
+          "Cloud & Edge Computing",
+          "Back-end Web Developer",
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let isEnd = false;
+
+        function type() {
+          const currentPhrase = phrases[phraseIndex];
+
+          if (isDeleting) {
+            typingText.textContent = currentPhrase.substring(0, charIndex - 1);
+            charIndex--;
+          } else {
+            typingText.textContent = currentPhrase.substring(0, charIndex + 1);
+            charIndex++;
+          }
+
+          if (!isDeleting && charIndex === currentPhrase.length) {
+            isEnd = true;
+            setTimeout(() => {
+              isDeleting = true;
+              type();
+            }, 2000);
+          } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(type, 500);
+          } else {
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(type, isEnd ? speed * 2 : speed);
+            isEnd = false;
+          }
+        }
+
+        setTimeout(type, 1000);
+
+        // Scroll animation
+        const sections = document.querySelectorAll("section");
+
+        function checkScroll() {
+          sections.forEach((section) => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (sectionTop < windowHeight * 0.75) {
+              section.classList.add("visible");
+            }
+          });
+        }
+
+        window.addEventListener("scroll", checkScroll);
+        checkScroll(); // Check on load
+      });
+
+      function scrollToContent() {
+        document.querySelector("section").scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    </script>
+  </body>
+</html>
